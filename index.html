@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Log Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      white-space: pre-wrap;
+    }
+    #log {
+      white-space: pre-wrap;
+      font-family: monospace;
+      height: 80vh;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="log"></div>
+  <script>
+    const ws = new WebSocket('ws://localhost:8080');
+    const logElement = document.getElementById('log');
+    
+    ws.onmessage = function(event) {
+      logElement.textContent = event.data;
+      logElement.scrollTop = logElement.scrollHeight;  // Auto-scroll to bottom
+    };
+
+    ws.onerror = function(error) {
+      console.error('WebSocket error:', error);
+    };
+  </script>
+</body>
+</html>
