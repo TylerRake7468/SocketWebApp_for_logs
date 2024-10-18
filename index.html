@@ -24,10 +24,10 @@
     const logElement = document.getElementById('log');
     
     ws.onmessage = function(event) {
-      logElement.textContent = event.data;
+      logElement.textContent += event.data + '\n';  // Append new log entry
       logElement.scrollTop = logElement.scrollHeight;  // Auto-scroll to bottom
-    };
-
+      console.log(logElement.textContent.length);
+    };    
     ws.onerror = function(error) {
       console.error('WebSocket error:', error);
     };
